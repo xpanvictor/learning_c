@@ -3,10 +3,9 @@
 int main(){
 	int c;
 
-	c = getchar();
 	// keep printing c and getting new until end of file indicator
-	while (c != EOF){
+	while ((c = getchar()) != EOF){
 		putchar(c);
-		c = getchar();
 	}
+	printf("%d", EOF);
 }
