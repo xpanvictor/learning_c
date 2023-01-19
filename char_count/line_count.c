@@ -1,15 +1,13 @@
 #include <stdio.h>
 
-int main(){
-	double nl;
-	int c;
-
+int main() {
+	int c, nl;
 	nl = 0;
-	
-	while ((c = getchar()) != EOF){
-		if (c == '\n')
-			++nl;
-	}
 
-	printf("%lg \n", nl);
+	while ((c = getchar()) != EOF){
+		if (c == '\n') {
+			++nl;
+		}	
+	} 
+	printf("There are %d lines\n", nl);
 }
