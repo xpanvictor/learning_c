@@ -23,7 +23,7 @@ int create_contact()
 
     // Still space, can store contact
     // Create new contact
-    int contact_index = PhoneBookCounter + 1;
+    int contact_index = PhoneBookCounter;
     printf("Please enter the phone number: ");
     scanf("%s", PhoneBook[contact_index].phone);
 
@@ -35,7 +35,23 @@ int create_contact()
 
     PhoneBookCounter++;
 
-    return PhoneBookCounter;
+    return contact_index;
+}
+
+// Private function ?
+void show_contact(int index)
+{
+    printf("Showing contact at index %d --->\n", index);
+    struct Contact user_fetched = PhoneBook[index];
+    printf("First name: %s\n", user_fetched.first_name);
+    printf("Last name: %s\n", user_fetched.last_name);
+    printf("Phone number: %s\n\n", user_fetched.phone);
+}
+
+void show_all_contacts()
+{
+    for (int i = 0; i < PhoneBookCounter; i++)
+        show_contact(i);
 }
 
 void router()
@@ -64,7 +80,8 @@ void router()
         case 'c':
         {
             int contact_index = create_contact();
-            printf("Contact stored at %d", contact_index);
+            printf("Contact created\n");
+            show_contact(contact_index);
             break;
         };
 
@@ -77,9 +94,12 @@ void router()
             break;
 
         case 's':
-            printf("Will create a new contact\n");
+        {
+            printf("Fetching all contacts...\n");
+            show_all_contacts();
             break;
-        
+        }
+
         case 'q':
             printf("Thanks for using the phone book app\n");
             break;

@@ -5,8 +5,10 @@ Describe the subproblems, the order in which you would work on them, and any tes
 
 # Breakdown
 - routing for the app (done)
-- data type for storage
-- save data
-- retrieve data
-- present data
-
+- data type for storage (done)
+- save data (done)
+- present data (done)
+- show all (done)
+- retrieve data / search
+- update data
+- delete data
