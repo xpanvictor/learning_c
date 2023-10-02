@@ -9,6 +9,11 @@ Describe the subproblems, the order in which you would work on them, and any tes
 - save data (done)
 - present data (done)
 - show all (done)
-- retrieve data / search
+- retrieve data / search _partially done
 - update data
 - delete data
+
+# Updates
+1. The search returns first found index
+    To solve this, I brought in the start index which can be used to 
+    continue search index

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 struct Contact
 {
@@ -12,6 +13,13 @@ struct Contact
 // Phone book array of max 12 contacts
 struct Contact PhoneBook[12];
 int PhoneBookCounter = 0;
+
+// private util function; TODO: shouldn't mutate
+char* toLowerCase(char *s) {
+    for (int i = 0; s[i]; i++) {
+        s[i] = tolower(s[i]);
+    }
+}
 
 int create_contact()
 {
@@ -41,7 +49,7 @@ int create_contact()
 // Private function ?
 void show_contact(int index)
 {
-    printf("Showing contact at index %d --->\n", index);
+    printf("\nShowing contact at index %d --->\n", index);
     struct Contact user_fetched = PhoneBook[index];
     printf("First name: %s\n", user_fetched.first_name);
     printf("Last name: %s\n", user_fetched.last_name);
@@ -52,12 +60,65 @@ void show_all_contacts()
 {
     for (int i = 0; i < PhoneBookCounter; i++)
         show_contact(i);
+
+    printf("Fetched all %d contacts", PhoneBookCounter);
+}
+
+int search_for_contact_index(char *query, int start_index)
+{
+    printf("Searching for %s...\n", query);
+    for (int i = start_index; i < PhoneBookCounter; i++)
+    {
+        struct Contact current_contact = PhoneBook[i];
+        char *res = strstr(current_contact.first_name, query);
+        if (
+            strstr(current_contact.first_name, query) == NULL &&
+            strstr(current_contact.last_name, query) == NULL &&
+            strstr(current_contact.phone, query) == NULL)
+            continue;
+        return i;
+    }
+    return -1;
+}
+
+void find_contact()
+{
+    char query[15];
+    printf("Enter anything you remember about the contact: ");
+    scanf("%s", &query);
+
+    int search_start_index = 0;
+    int continue_searching = 1;
+    while (continue_searching > 0)
+    {
+        int contact_index = search_for_contact_index(query, 0);
+        if (contact_index < 0)
+        {
+            printf("Sorry contact not found!\n");
+            return;
+        }
+        show_contact(contact_index);
+        printf("Is this the contact;\n0 for yes, 1 for continue searching: ");
+
+        // TODO: Fix continue searching
+        continue_searching = getchar();
+        search_start_index = contact_index + 1; // next place to resume search
+
+        if (search_start_index > PhoneBookCounter)
+        {
+            printf("Search done either no more contact to search!");
+        }
+        // consume new line char
+        while (getchar() != '\n')
+            ;
+    }
 }
 
 void router()
 {
     /**
      * c => create new contact;
+     * f => find contact;
      * d => delete contact;
      * u => update contact;
      * s => show all contacts;
@@ -67,8 +128,10 @@ void router()
 
     do
     {
-        printf("\nEnter c to create, d to delete, s to show all, \nu to update and q to quit: ");
+        printf("\nEnter c to create, f to find, d to delete, s to show all, \nu to update and q to quit: ");
         action_to_do = getchar();
+        while (action_to_do == '\n')
+            action_to_do = getchar();
 
         // consume new line char
         while (getchar() != '\n')
@@ -84,6 +147,12 @@ void router()
             show_contact(contact_index);
             break;
         };
+
+        case 'f':
+        {
+            find_contact();
+            break;
+        }
 
         case 'd':
             printf("Will create a new contact\n");
