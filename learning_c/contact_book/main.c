@@ -15,10 +15,24 @@ struct Contact PhoneBook[12];
 int PhoneBookCounter = 0;
 
 // private util function; TODO: shouldn't mutate
-char* toLowerCase(char *s) {
-    for (int i = 0; s[i]; i++) {
+char *toLowerCase(char *s)
+{
+    for (int i = 0; s[i]; i++)
+    {
         s[i] = tolower(s[i]);
     }
+}
+
+void fill_contact_details(int contact_index)
+{
+    printf("Please enter the phone number: ");
+    scanf("%s", PhoneBook[contact_index].phone);
+
+    printf("Please enter the first name: ");
+    scanf("%s", PhoneBook[contact_index].first_name);
+
+    printf("Please enter the last name: ");
+    scanf("%s", PhoneBook[contact_index].last_name);
 }
 
 int create_contact()
@@ -32,15 +46,7 @@ int create_contact()
     // Still space, can store contact
     // Create new contact
     int contact_index = PhoneBookCounter;
-    printf("Please enter the phone number: ");
-    scanf("%s", PhoneBook[contact_index].phone);
-
-    printf("Please enter the first name: ");
-    scanf("%s", PhoneBook[contact_index].first_name);
-
-    printf("Please enter the last name: ");
-    scanf("%s", PhoneBook[contact_index].last_name);
-
+    fill_contact_details(contact_index);
     PhoneBookCounter++;
 
     return contact_index;
@@ -102,6 +108,8 @@ void find_contact()
 
         // TODO: Fix continue searching
         continue_searching = getchar();
+        while (continue_searching == '\n')
+            continue_searching = getchar();
         search_start_index = contact_index + 1; // next place to resume search
 
         if (search_start_index > PhoneBookCounter)
@@ -112,6 +120,34 @@ void find_contact()
         while (getchar() != '\n')
             ;
     }
+}
+
+void update_contact()
+{
+    char query[15];
+    printf("Enter anything you remember about the contact to update: ");
+    scanf("%s", &query);
+
+    int contact_index = search_for_contact_index(query, 0);
+    if (contact_index < 0)
+    {
+        printf("Sorry contact not found!\n");
+        return;
+    }
+    show_contact(contact_index);
+
+    // TODO: continue searching fn
+    printf("Is this the contact;\n0 for yes, 1 for continue searching: ");
+    int continue_searching = getchar();
+    while (continue_searching == '\n')
+            continue_searching = getchar();
+    
+
+    // if right contact to update
+    fill_contact_details(contact_index);
+
+    printf("Contact updated successfully =>\n");
+    show_contact(contact_index);
 }
 
 void router()
@@ -155,12 +191,13 @@ void router()
         }
 
         case 'd':
-            printf("Will create a new contact\n");
             break;
 
         case 'u':
-            printf("Will create a new contact\n");
+        {
+            update_contact();
             break;
+        }
 
         case 's':
         {
