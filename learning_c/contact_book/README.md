@@ -17,3 +17,6 @@ Describe the subproblems, the order in which you would work on them, and any tes
 1. The search returns first found index
     To solve this, I brought in the start index which can be used to 
     continue search index
+2. Delete contact issue with index
+    Realized that a linked list would have been better as
+    would have to adjust the array of contacts after deleting 

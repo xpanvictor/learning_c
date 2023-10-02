@@ -3,6 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 
+#define PHONE_BOOK_MAX 12;
+
 struct Contact
 {
     char first_name[15];
@@ -11,7 +13,7 @@ struct Contact
 };
 
 // Phone book array of max 12 contacts
-struct Contact PhoneBook[12];
+struct Contact PhoneBook[PHONE_BOOK_MAX];
 int PhoneBookCounter = 0;
 
 // private util function; TODO: shouldn't mutate
@@ -150,6 +152,43 @@ void update_contact()
     show_contact(contact_index);
 }
 
+void delete_contact()
+{
+    char query[15];
+    printf("Enter anything you remember about the contact to delete: ");
+    scanf("%s", &query);
+
+    int contact_index = search_for_contact_index(query, 0);
+    if (contact_index < 0)
+    {
+        printf("Sorry contact not found!\n");
+        return;
+    }
+    show_contact(contact_index);
+
+    // TODO: continue searching fn
+    printf("Is this the contact;\n0 for yes, 1 for continue searching: ");
+    int continue_searching = getchar();
+    while (continue_searching == '\n')
+            continue_searching = getchar();
+
+    // A linked list would have been better
+    for(
+        int i = contact_index; 
+        i <= PhoneBookCounter; 
+        i++
+    ) {
+        // if (i == PHONE_BOOK_MAX - 1) {
+        //     // TODO:
+        // }
+        PhoneBook[i] = PhoneBook[i+1];
+    }
+    // // Delete last item
+    // PhoneBook[contact_index];
+    PhoneBookCounter--;
+    show_all_contacts();
+}
+
 void router()
 {
     /**
@@ -191,6 +230,7 @@ void router()
         }
 
         case 'd':
+            delete_contact();
             break;
 
         case 'u':
