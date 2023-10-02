@@ -14,7 +14,7 @@ void router() {
     
     do {
         printf("\nEnter c to create, d to delete, s to show all, \nu to update and q to quit: ");
-        scanf("%c", &action_to_do);
+        action_to_do = getchar();
 
         // consume new line char
         while (getchar() != '\n');
