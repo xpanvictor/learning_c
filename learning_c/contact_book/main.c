@@ -11,7 +11,7 @@ int main()
      * s => show all contacts;
      * q => quit contact book program
     */
-    char action_to_do;
+    char action_to_do = '\0';
     
     do {
         printf("Enter c to create, d to delete, s to show all, \nu to update and q to quit: ");
