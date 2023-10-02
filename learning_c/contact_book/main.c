@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#define PHONE_BOOK_MAX 12;
+#define PHONE_BOOK_MAX 12
 
 struct Contact
 {
@@ -178,9 +178,13 @@ void delete_contact()
         i <= PhoneBookCounter; 
         i++
     ) {
-        // if (i == PHONE_BOOK_MAX - 1) {
-        //     // TODO:
-        // }
+        if (i == PHONE_BOOK_MAX - 1) {
+            struct Contact last_contact = PhoneBook[i];
+            strcpy("\0", last_contact.phone);
+            strcpy("\0", last_contact.first_name);
+            strcpy("\0", last_contact.last_name);
+            continue;
+        }
         PhoneBook[i] = PhoneBook[i+1];
     }
     // // Delete last item
