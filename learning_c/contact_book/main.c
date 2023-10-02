@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
-{
-    printf("Welcome to the phonebook app.\n");
+
+void router() {
     /**
      * c => create new contact;
      * d => delete contact;
@@ -14,14 +13,40 @@ int main()
     char action_to_do = '\0';
     
     do {
-        printf("Enter c to create, d to delete, s to show all, \nu to update and q to quit: ");
+        printf("\nEnter c to create, d to delete, s to show all, \nu to update and q to quit: ");
         scanf("%c", &action_to_do);
 
         // consume new line char
         while (getchar() != '\n');
         
-        printf("%c\n", action_to_do);
+        switch (action_to_do)
+        {
+        case 'c':
+            printf("Will create a new contact\n");
+            break;
+        
+        case 'd':
+            printf("Will create a new contact\n");
+            break;
+        
+        case 'u':
+            printf("Will create a new contact\n");
+            break;
+        
+        case 's':
+            printf("Will create a new contact\n");
+            break;
+        
+        default:
+            printf("The option '%c' you entered is not valid\n", action_to_do);
+            continue;
+        }
     } while (action_to_do != 'q');
+}
 
+int main()
+{
+    printf("Welcome to the phonebook app.\n");
+    router();
     exit(0);
 }
