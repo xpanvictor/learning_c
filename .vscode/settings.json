@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.excalidraw": "json",
+        "*.excalidrawlib": "json",
+        ".env*": "dotenv",
+        "stdlib.h": "c",
+        "fcntl.h": "c"
+    }
+}
