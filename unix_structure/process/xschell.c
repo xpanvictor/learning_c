@@ -24,7 +24,7 @@ int main()
     if ((buf[strlen(buf) - 1]) == '\n')
       buf[strlen(buf) - 1] = 0;
 
-    // fork a new process to run command
+    // fork/clone process to run command
     if ((pid = fork()) < 0) {
       sys_err("Fork error");
     } else if (pid == 0) {
