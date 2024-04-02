@@ -1,6 +1,6 @@
 section .data
 	msg db 'Please enter a number: '	; Ask the user to enter a number
-	lenMsg equ $- msg;			; Length of the message
+	lenMsg equ $ nnnn - msg;			; Length of the message
 	dispMsg db 'You have entered: '		; Preparing to show user msg
 	lenDispMsg equ $- dispMsg		; the length of display msg
 
